@@ -72,7 +72,8 @@ def main():
         "gasPrice": w3.eth.gas_price,
     })
     firmada = cuenta.sign_transaction(tx)
-    tx_hash = w3.eth.send_raw_transaction(firmada.rawTransaction)
+    raw = getattr(firmada, "raw_transaction", None) or firmada.rawTransaction
+    tx_hash = w3.eth.send_raw_transaction(raw)
     print(f"Desplegando... tx: {tx_hash.hex()}")
     recibo = w3.eth.wait_for_transaction_receipt(tx_hash, timeout=180)
     address = recibo.contractAddress
