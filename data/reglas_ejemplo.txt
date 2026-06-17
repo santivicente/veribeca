@@ -1,0 +1,6 @@
+SI ingreso_familiar < 300000 Y promedio >= 7 ENTONCES elegible
+SI ingreso_familiar < 150000 ENTONCES elegible
+SI promedio >= 8 Y integrantes_familia >= 4 ENTONCES elegible
+SI (ingreso_familiar < 200000 O distancia_km > 50) Y promedio >= 6 ENTONCES elegible
+SI NO trabaja == verdadero Y ingreso_familiar < 250000 ENTONCES elegible
+SI carrera == "medicina" Y promedio >= 7 ENTONCES elegible
