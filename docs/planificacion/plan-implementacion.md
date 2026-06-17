@@ -1,6 +1,6 @@
-# VeriBeca Implementation Plan
+# VeriBeca — Plan de Implementación
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> Plan de implementación dividido en tareas. Cada paso usa checkboxes (`- [ ]`) para hacer seguimiento del avance del equipo.
 
 **Goal:** Construir un MVP demostrable de VeriBeca: un DSL tipado para reglas de elegibilidad de becas, con backend, IA de priorización, registro en blockchain (testnet) y UI, más toda la documentación de la hackathon.
 
