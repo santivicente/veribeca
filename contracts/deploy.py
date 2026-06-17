@@ -1,10 +1,10 @@
-"""Compila y despliega AuditoriaBecas.sol en Polygon Amoy, y guarda la direccion en .env.
+"""Compila y despliega AuditoriaBecas.sol en la testnet Ethereum Sepolia, y guarda la direccion en .env.
 
 Uso:
     python contracts/deploy.py
 
 Requisitos:
-- .env con AMOY_RPC_URL y PRIVATE_KEY (la wallet debe tener POL de prueba del faucet).
+- .env con RPC_URL y PRIVATE_KEY (la wallet debe tener ETH de prueba del faucet).
 - py-solc-x instalado (esta en requirements.txt).
 
 Si la wallet no tiene fondos, el script avisa y no hace nada (no rompe).
@@ -48,7 +48,7 @@ def _guardar_address_en_env(address):
 
 def main():
     load_dotenv()
-    rpc = os.environ["AMOY_RPC_URL"]
+    rpc = os.environ["RPC_URL"]
     pk = os.environ["PRIVATE_KEY"]
 
     w3 = Web3(Web3.HTTPProvider(rpc, request_kwargs={"timeout": 30}))
@@ -56,10 +56,10 @@ def main():
     print(f"Wallet: {cuenta.address}")
 
     saldo = w3.eth.get_balance(cuenta.address)
-    print(f"Saldo: {w3.from_wei(saldo, 'ether')} POL")
+    print(f"Saldo: {w3.from_wei(saldo, 'ether')} ETH")
     if saldo == 0:
-        print("\n  Esta wallet no tiene fondos. Pedi POL de prueba en un faucet de Amoy")
-        print("  (ej: https://faucet.polygon.technology) pegando la direccion de arriba,")
+        print("\n  Esta wallet no tiene fondos. Pedi ETH de prueba en un faucet de Sepolia")
+        print("  (ej: https://sepolia-faucet.pk910.de) pegando la direccion de arriba,")
         print("  esperá a que llegue y volvé a correr este script.")
         return
 
@@ -77,7 +77,7 @@ def main():
     recibo = w3.eth.wait_for_transaction_receipt(tx_hash, timeout=180)
     address = recibo.contractAddress
     print(f"Contrato desplegado en: {address}")
-    print(f"Ver en: https://amoy.polygonscan.com/address/{address}")
+    print(f"Ver en: https://sepolia.etherscan.io/address/{address}")
 
     _guardar_address_en_env(address)
     print("CONTRACT_ADDRESS guardado en .env")

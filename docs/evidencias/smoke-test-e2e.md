@@ -24,6 +24,6 @@ elegibles: 24 | no elegibles: 76
 - La IA ordena a los 24 elegibles por score de vulnerabilidad (descendente).
 - Por cada decisión se genera un hash de auditoría. En esta corrida el modo es `fallback`
   (local) porque aún no se desplegó el contrato; al configurar `.env` con un contrato en
-  Polygon Amoy, el modo pasa a `onchain` con su transacción verificable.
+  Ethereum Sepolia, el modo pasa a `onchain` con su transacción verificable.
 
 **Suite de tests:** `27 passed` (DSL 20 + IA 3 + backend 2 + contracts 2).

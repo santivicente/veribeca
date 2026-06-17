@@ -100,7 +100,7 @@ importadores desde sistemas existentes, y soporte de reglas con más operadores 
 [Streamlit UI]  ──>  [FastAPI backend]
                           ├─ Motor DSL:  lexer → parser → AST → type-checker → intérprete
                           ├─ IA (scikit-learn): scoring de prioridad sobre elegibles
-                          └─ Web3: hash(decisión) → Smart Contract (Polygon Amoy) [+ fallback local]
+                          └─ Web3: hash(decisión) → Smart Contract (Ethereum Sepolia) [+ fallback local]
 ```
 
 - **Lenguaje/Framework:** Python + FastAPI (backend), Streamlit (frontend).
@@ -115,12 +115,12 @@ importadores desde sistemas existentes, y soporte de reglas con más operadores 
 - *Qué valor aporta:* ordena a los elegibles por necesidad, de forma consistente y explicable.
 
 **Blockchain.**
-- *Cómo se usó:* un smart contract `AuditoriaBecas` (Solidity) en la **testnet Polygon Amoy**.
+- *Cómo se usó:* un smart contract `AuditoriaBecas` (Solidity) en la **testnet Ethereum Sepolia**.
   Por cada decisión se calcula `sha256(datos + regla + resultado)` y se registra con
   `registrar(bytes32 hash)`, emitiendo un evento con timestamp. La interacción es vía `web3.py`.
 - *Qué problema resuelve:* garantiza que la decisión **no fue alterada** después; cualquiera
   puede verificar el hash en el explorer.
-- *Evidencia de funcionamiento:* transacción verificable en el explorer de Amoy (ver
+- *Evidencia de funcionamiento:* transacción verificable en el explorer de Sepolia (ver
   `docs/evidencias/`). Si el RPC/faucet falla, un **fallback local** registra el mismo hash en
   un archivo, de modo que el flujo nunca se interrumpe.
 
@@ -152,7 +152,7 @@ aplicar mal por errores de tipos; consistencia total entre evaluadores.
   defendibles).
 - *Impacto social:* más confianza en las instituciones, menos discrecionalidad.
 - *Impacto económico:* reducción drástica del tiempo de evaluación frente al proceso manual.
-- *Impacto ambiental:* uso de una L2 (Polygon) de bajo consumo energético frente a cadenas PoW.
+- *Impacto ambiental:* uso de una testnet PoS (Ethereum Sepolia) de bajo consumo energético frente a cadenas PoW. En producción puede usarse una L2 (ej. Polygon) para minimizar costos y energía.
 
 **Preguntas del jurado anticipadas:**
 - *¿Cómo medirían el éxito?* Tiempo de evaluación reducido, 100% de decisiones con certificado
@@ -203,7 +203,7 @@ alcance amplio.
   reales y porque la interpretabilidad es prioritaria en decisiones sensibles. Se optó por un
   score transparente + demostración con scikit-learn.
 - **Idea descartada — desplegar en mainnet:** innecesario y costoso para un MVP; una testnet
-  (Amoy) demuestra el concepto sin riesgo ni gasto.
+  (Ethereum Sepolia) demuestra el concepto sin riesgo ni gasto.
 - **Idea descartada — frontend en React:** mayor tiempo de desarrollo; Streamlit da una UI
   presentable en una fracción del esfuerzo, adecuada para el plazo.
 - **Aprendizajes:** el valor de desacoplar módulos (testear el DSL aislado aceleró todo), la
@@ -213,7 +213,7 @@ alcance amplio.
 ## 9. Fuentes y referencias
 
 - Documentación de Python, FastAPI, scikit-learn, Streamlit y web3.py.
-- Documentación de Polygon (testnet Amoy) y Solidity.
+- Documentación de Ethereum (testnet Sepolia) y Solidity.
 - Conceptos de las unidades de Teoría de Computación 2 (lenguajes, tipos, compiladores,
   seguridad/blockchain).
 - Bibliografía clásica de compiladores (lexer/parser/AST/intérprete).

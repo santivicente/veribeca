@@ -64,7 +64,7 @@ if st.button("Evaluar"):
         with st.expander(f"#{i} — {nombre} · score {p['score']}"):
             st.write({k: v for k, v in p.items() if k != "certificado"})
             if cert["modo"] == "onchain":
-                st.markdown(f"🔗 [Ver transacción en Polygon Amoy](https://amoy.polygonscan.com/tx/{cert['tx']})")
+                st.markdown(f"🔗 [Ver transacción en Sepolia](https://sepolia.etherscan.io/tx/{cert['tx']})")
             else:
                 st.info(f"Certificado de auditoría (fallback local):\n\n`{cert['hash']}`")
 

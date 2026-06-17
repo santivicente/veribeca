@@ -25,7 +25,7 @@ misma para todos.
 3. El **intérprete** evalúa cada postulante y marca a los elegibles.
 4. La **IA** ordena a los elegibles por un score de vulnerabilidad.
 5. Por cada decisión se calcula un **hash** y se registra en un **smart contract** (testnet
-   Polygon Amoy), generando un certificado de auditoría verificable.
+   Ethereum Sepolia), generando un certificado de auditoría verificable.
 
 ## Cómo cumple la consigna de la materia
 
@@ -43,12 +43,12 @@ misma para todos.
 [Streamlit UI]  ──>  [FastAPI backend]
                           ├─ Motor DSL:  lexer → parser → AST → type-checker → intérprete
                           ├─ IA (scikit-learn): scoring de prioridad sobre elegibles
-                          └─ Web3: hash(decisión) → Smart Contract (Polygon Amoy) [+ fallback local]
+                          └─ Web3: hash(decisión) → Smart Contract (Ethereum Sepolia) [+ fallback local]
 ```
 
 ## Stack tecnológico
 
-Python · FastAPI · scikit-learn · pandas · Solidity · Polygon Amoy (testnet) · web3.py · Streamlit · pytest.
+Python · FastAPI · scikit-learn · pandas · Solidity · Ethereum Sepolia (testnet) · web3.py · Streamlit · pytest.
 
 ## Estructura del repositorio
 
@@ -91,7 +91,7 @@ En la UI: cargá una regla (hay ejemplos en `data/reglas_ejemplo.txt`), subí el
 
 Sin configurar nada, los certificados se generan en modo **fallback local** (la demo funciona
 igual). Para registrar en la testnet real, copiá `.env.example` a `.env` y completá
-`AMOY_RPC_URL`, `PRIVATE_KEY` y `CONTRACT_ADDRESS`. Ver instrucciones detalladas en
+`RPC_URL`, `PRIVATE_KEY` y `CONTRACT_ADDRESS`. Ver instrucciones detalladas en
 [docs/memoria-tecnica.md](docs/memoria-tecnica.md).
 
 ## Cómo correr los tests

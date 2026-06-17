@@ -47,7 +47,7 @@
 ### Slide 8 — Impacto y métricas
 - −80% tiempo de evaluación vs manual · 100% de decisiones verificables.
 - Beneficiarios: postulantes (justicia) e instituciones (procesos defendibles).
-- Impacto ambiental: L2 de bajo consumo (Polygon).
+- Impacto ambiental: testnet PoS de bajo consumo (Ethereum Sepolia).
 
 ### Slide 9 — Viabilidad y sostenibilidad
 - Técnica: MVP funcionando end-to-end (27 tests, transacción real en testnet).

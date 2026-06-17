@@ -30,7 +30,7 @@ def _guardar_fallback(registro):
 def _registrar_onchain(hash_hex):
     """Devuelve el tx hash. Lanza excepcion si no se puede (la captura registrar_decision)."""
     from web3 import Web3
-    rpc = os.environ["AMOY_RPC_URL"]
+    rpc = os.environ["RPC_URL"]
     pk = os.environ["PRIVATE_KEY"]
     address = os.environ["CONTRACT_ADDRESS"]
     if not address:
