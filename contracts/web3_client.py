@@ -53,8 +53,15 @@ def _registrar_onchain(hash_hex):
     return tx_hash.hex()
 
 
-def registrar_decision(postulante, texto_regla, resultado):
+def registrar_decision(postulante, texto_regla, resultado, forzar_fallback=False):
+    """Registra el hash de la decisión. Con forzar_fallback=True omite la red y guarda
+    directo en el ledger local (sirve para dejar solo algunas decisiones on-chain y el
+    resto en modo rápido)."""
     h = calcular_hash(postulante, texto_regla, resultado)
+    if forzar_fallback:
+        registro = {"hash": h, "tx": None, "modo": "fallback", "timestamp": time.time()}
+        _guardar_fallback(registro)
+        return registro
     try:
         tx_hash = _registrar_onchain(h)
         registro = {"hash": h, "tx": tx_hash, "modo": "onchain", "timestamp": time.time()}

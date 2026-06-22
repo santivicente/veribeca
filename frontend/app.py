@@ -64,7 +64,8 @@ if st.button("Evaluar"):
         with st.expander(f"#{i} — {nombre} · score {p['score']}"):
             st.write({k: v for k, v in p.items() if k != "certificado"})
             if cert["modo"] == "onchain":
-                st.markdown(f"🔗 [Ver transacción en Sepolia](https://sepolia.etherscan.io/tx/{cert['tx']})")
+                _tx = cert["tx"] if str(cert["tx"]).startswith("0x") else "0x" + str(cert["tx"])
+                st.markdown(f"🔗 **Certificado on-chain real** — [Ver transacción en Sepolia](https://sepolia.etherscan.io/tx/{_tx})")
             else:
                 st.info(f"Certificado de auditoría (fallback local):\n\n`{cert['hash']}`")
 

@@ -38,7 +38,8 @@ def evaluar():
         else:
             no_elegibles.append(p)
     ranking = priorizar(elegibles)
-    for p in ranking:
-        cert = registrar_decision(p, texto, True)
+    # Registra on-chain solo al #1 (el de mayor prioridad); el resto en modo rápido (fallback).
+    for i, p in enumerate(ranking):
+        cert = registrar_decision(p, texto, True, forzar_fallback=(i != 0))
         p["certificado"] = cert
     return {"ranking": ranking, "no_elegibles": no_elegibles}
