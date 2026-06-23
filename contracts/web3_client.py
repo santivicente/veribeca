@@ -35,16 +35,24 @@ def _registrar_onchain(hash_hex):
     address = os.environ["CONTRACT_ADDRESS"]
     if not address:
         raise RuntimeError("Sin CONTRACT_ADDRESS")
-    w3 = Web3(Web3.HTTPProvider(rpc))
+    w3 = Web3(Web3.HTTPProvider(rpc, request_kwargs={"timeout": 60}))
     cuenta = w3.eth.account.from_key(pk)
     abi = json.loads(Path(RUTA_ABI).read_text(encoding="utf-8"))
     contrato = w3.eth.contract(address=Web3.to_checksum_address(address), abi=abi)
     hash_bytes = bytes.fromhex(hash_hex[2:])
+    if contrato.functions.existe(hash_bytes).call():
+        raise RuntimeError("La decision ya estaba registrada on-chain")
+    # Tarifas EIP-1559 con margen para que la transacción se confirme rápido (no se trabe),
+    # y nonce 'pending' para no chocar con transacciones aún sin minar.
+    base = w3.eth.get_block("latest")["baseFeePerGas"]
+    prioridad = w3.to_wei(2, "gwei")
     tx = contrato.functions.registrar(hash_bytes).build_transaction({
         "from": cuenta.address,
-        "nonce": w3.eth.get_transaction_count(cuenta.address),
+        "nonce": w3.eth.get_transaction_count(cuenta.address, "pending"),
         "gas": 120000,
-        "gasPrice": w3.eth.gas_price,
+        "maxPriorityFeePerGas": prioridad,
+        "maxFeePerGas": base * 2 + prioridad,
+        "chainId": w3.eth.chain_id,
     })
     firmada = cuenta.sign_transaction(tx)
     raw = getattr(firmada, "raw_transaction", None) or firmada.rawTransaction
