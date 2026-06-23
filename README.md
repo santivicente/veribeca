@@ -107,7 +107,6 @@ Suite actual: **27 tests** (DSL 20 · IA 3 · backend 2 · contracts 2).
 - [Lean Canvas](docs/lean-canvas.md)
 - [Memoria Técnica](docs/memoria-tecnica.md)
 - [Pitch Deck](docs/pitch-deck.md)
-- [Guion del video demo](docs/guion-video.md)
 - [Evidencias del MVP](docs/evidencias/)
 
 ## Equipo
@@ -117,4 +116,4 @@ Equipo de 3 integrantes. Roles y organización del trabajo en la
 
 ## Video demo
 
-> _(Agregar enlace al video cuando esté grabado.)_
+🎥 **[Ver el video demo](https://drive.google.com/file/d/1Geh7Fkq4N-V72Xdu0PnhmSKgdIS6_0hP/view?usp=sharing)**
