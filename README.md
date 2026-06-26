@@ -1,33 +1,60 @@
+<div align="center">
+
 # 🎓 VeriBeca
 
 ### Asignación transparente de becas y ayudas sociales con DSL tipado, IA y Blockchain
 
-Proyecto de **Teoría de Computación 2** — Hackathon, Universidad Champagnat.
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)
+![Tests](https://img.shields.io/badge/tests-27%20passing-brightgreen)
+![IA](https://img.shields.io/badge/IA-scikit--learn-F7931E)
+![Blockchain](https://img.shields.io/badge/blockchain-Ethereum%20Sepolia-627EEA)
+![MVP](https://img.shields.io/badge/MVP-funcional-success)
 
-VeriBeca permite que una institución defina sus **criterios de elegibilidad** en un lenguaje
-propio simple (un DSL tipado), el sistema los **valida y aplica automáticamente**, una **IA**
-prioriza a quienes califican según vulnerabilidad, y **cada decisión queda registrada de forma
-inmutable en blockchain** como certificado de auditoría verificable por cualquiera.
+*Proyecto Final · Teoría de Computación 2 · Universidad Champagnat*
+
+🎥 **[Ver video demo](https://drive.google.com/file/d/1Geh7Fkq4N-V72Xdu0PnhmSKgdIS6_0hP/view?usp=sharing)** &nbsp;·&nbsp; 🔗 **[Contrato en Etherscan](https://sepolia.etherscan.io/address/0xa37E9b370840F14f5E5C69Ff7B7119eCE3034176)** &nbsp;·&nbsp; 📄 **[Memoria Técnica](docs/memoria-tecnica.md)**
+
+</div>
 
 ---
 
-## El problema
+## 📑 Contenido
 
-La asignación de becas, subsidios y ayudas sociales se percibe como poco transparente:
+- [El problema](#-el-problema)
+- [La solución](#-la-solución)
+- [Cómo cumple la consigna](#-cómo-cumple-la-consigna-de-la-materia)
+- [Arquitectura](#-arquitectura)
+- [Evidencia de funcionamiento](#-evidencia-de-funcionamiento)
+- [Cómo ejecutarlo](#-cómo-ejecutarlo)
+- [Documentación](#-documentación)
+- [Equipo](#-equipo)
+
+---
+
+## 🎯 El problema
+
+La asignación de becas, subsidios y ayudas sociales se percibe como **poco transparente**:
 criterios ambiguos, evaluación manual lenta y sospechas de favoritismo. Cuando alguien queda
-afuera, no hay forma simple de auditar *por qué*, ni garantía de que la regla aplicada fue la
-misma para todos.
+afuera, **no hay forma simple de auditar *por qué***, ni garantía de que la regla aplicada haya
+sido la misma para todos.
 
-## La solución
+## 💡 La solución
 
-1. La institución escribe sus reglas en el **DSL** (ej: `SI ingreso_familiar < 300000 Y promedio >= 7 ENTONCES elegible`).
-2. Un **type-checker** valida que las reglas estén bien formadas *antes* de aplicarlas.
-3. El **intérprete** evalúa cada postulante y marca a los elegibles.
-4. La **IA** ordena a los elegibles por un score de vulnerabilidad.
-5. Por cada decisión se calcula un **hash** y se registra en un **smart contract** (testnet
-   Ethereum Sepolia), generando un certificado de auditoría verificable.
+VeriBeca permite que la institución defina sus criterios en un **lenguaje propio y tipado**, el
+sistema los **valida y aplica automáticamente**, una **IA** prioriza por vulnerabilidad, y **cada
+decisión queda sellada en blockchain** como certificado de auditoría verificable por cualquiera.
 
-## Cómo cumple la consigna de la materia
+| Paso | Qué hace |
+| :---: | :--- |
+| **1** | La institución escribe la regla en el DSL: `SI ingreso_familiar < 300000 Y promedio >= 7 ENTONCES elegible` |
+| **2** | Un **type-checker** valida que la regla esté bien formada *antes* de aplicarla |
+| **3** | El **intérprete** evalúa a cada postulante y marca a los elegibles |
+| **4** | La **IA** ordena a los elegibles por un score de vulnerabilidad |
+| **5** | Se calcula un **hash** de la decisión y se registra en un **smart contract** (Ethereum Sepolia) |
+
+## 🧩 Cómo cumple la consigna de la materia
+
+Integra las **4 unidades del programa + IA + Blockchain** en un único flujo real:
 
 | Unidad / Eje | Dónde se aplica en VeriBeca |
 | :--- | :--- |
@@ -35,9 +62,11 @@ misma para todos.
 | **II. Sistemas de tipos** | type-checker del DSL (tipos `numero`, `booleano`, `texto`) |
 | **III. Diseño de compiladores** | pipeline `lexer → parser → AST → type-checker → intérprete` |
 | **IV. Seguridad / Blockchain** | hash de cada decisión + smart contract en testnet |
-| **Inteligencia Artificial** | scoring/priorización por vulnerabilidad (scikit-learn) |
+| **Inteligencia Artificial** | scoring de vulnerabilidad con scikit-learn |
 
-## Arquitectura
+## 🏗️ Arquitectura
+
+Módulos desacoplados, cada uno con una responsabilidad clara y testeable por separado:
 
 ```
 [Streamlit UI]  ──>  [FastAPI backend]
@@ -46,74 +75,78 @@ misma para todos.
                           └─ Web3: hash(decisión) → Smart Contract (Ethereum Sepolia) [+ fallback local]
 ```
 
-## Stack tecnológico
-
-Python · FastAPI · scikit-learn · pandas · Solidity · Ethereum Sepolia (testnet) · web3.py · Streamlit · pytest.
-
-## Estructura del repositorio
+**Stack:** Python · FastAPI · scikit-learn · pandas · Solidity · Ethereum Sepolia · web3.py · Streamlit · pytest
 
 ```
 veribeca/
-├─ dsl/           # motor del lenguaje: lexer, parser, type-checker, intérprete
-├─ ia/            # dataset sintético + modelo de scoring de vulnerabilidad
-├─ contracts/     # smart contract Solidity + cliente web3 con fallback local
-├─ backend/       # API FastAPI que orquesta DSL + IA + blockchain
-├─ frontend/      # interfaz Streamlit
-├─ tests/         # tests del DSL
-├─ data/          # dataset sintético y reglas de ejemplo
-└─ docs/          # Lean Canvas, Memoria Técnica, Pitch Deck, guion de video, evidencias
+├─ dsl/         # motor del lenguaje: lexer, parser, type-checker, intérprete
+├─ ia/          # dataset sintético + modelo de scoring de vulnerabilidad
+├─ contracts/   # smart contract Solidity + cliente web3 con fallback local
+├─ backend/     # API FastAPI que orquesta DSL + IA + blockchain
+├─ frontend/    # interfaz Streamlit
+├─ tests/       # suite de tests del DSL
+├─ data/        # dataset sintético y reglas de ejemplo
+└─ docs/        # Lean Canvas, Memoria Técnica, Pitch Deck, Informe, evidencias
 ```
 
-## Cómo ejecutarlo
+## ✅ Evidencia de funcionamiento
 
-> Requiere Python 3.10+.
+- 🧪 **27 tests automáticos** en verde (DSL 20 · IA 3 · backend 2 · contracts 2).
+- 📊 Sobre **100 postulantes** de prueba: evaluados y priorizados **24 elegibles** en segundos.
+- ⛓️ **Smart contract real desplegado** en Ethereum Sepolia y **transacción verificable**:
+  - Contrato: [`0xa37E9b37...CE3034176`](https://sepolia.etherscan.io/address/0xa37E9b370840F14f5E5C69Ff7B7119eCE3034176)
+- 🛟 Si falla la red, el sistema sigue funcionando en **modo de respaldo** (la demo nunca se cae).
+
+Más detalle en [docs/evidencias/](docs/evidencias/).
+
+## 🚀 Cómo ejecutarlo
+
+> Requiere **Python 3.10+**.
 
 ```bash
-# 1. Crear entorno e instalar dependencias
+# 1. Clonar e instalar dependencias
+git clone https://github.com/santivicente/veribeca.git
+cd veribeca
 python -m venv .venv
 # Windows:  .venv\Scripts\activate     Linux/Mac:  source .venv/bin/activate
 pip install -r requirements.txt
 
-# 2. Generar el dataset sintético de postulantes
-python ia/generar_dataset.py
+# 2. Levantar el backend (terminal 1)
+uvicorn backend.main:app
 
-# 3. Levantar el backend (en una terminal)
-uvicorn backend.main:app --reload
-
-# 4. Levantar el frontend (en otra terminal)
+# 3. Levantar el frontend (terminal 2)
 streamlit run frontend/app.py
 ```
 
-En la UI: cargá una regla (hay ejemplos en `data/reglas_ejemplo.txt`), subí el CSV
-`data/postulantes.csv`, y presioná **Evaluar**.
+Se abre en **http://localhost:8501**. En la app: cargá una regla (ejemplos en
+`data/reglas_ejemplo.txt`), subí el CSV `data/postulantes.csv` y presioná **Evaluar**.
 
-### Blockchain (opcional para la demo)
+**Tests:** `pytest -q`
 
-Sin configurar nada, los certificados se generan en modo **fallback local** (la demo funciona
-igual). Para registrar en la testnet real, copiá `.env.example` a `.env` y completá
-`RPC_URL`, `PRIVATE_KEY` y `CONTRACT_ADDRESS`. Ver instrucciones detalladas en
-[docs/memoria-tecnica.md](docs/memoria-tecnica.md).
+> **Blockchain (opcional):** sin configurar nada, los certificados se generan en modo *fallback
+> local*. Para registrar en la testnet real, copiá `.env.example` a `.env` y completá `RPC_URL`,
+> `PRIVATE_KEY` y `CONTRACT_ADDRESS`.
 
-## Cómo correr los tests
+## 📚 Documentación
 
-```bash
-pytest -q
-```
+| Documento | Descripción |
+| :--- | :--- |
+| [📊 Lean Canvas](docs/lean-canvas.md) | Modelo de negocio en una vista |
+| [📄 Memoria Técnica](docs/memoria-tecnica.md) | Informe técnico completo (problema, solución, MVP, tecnología) |
+| [📑 Informe del proyecto](docs/Informe-VeriBeca.pdf) | Informe ejecutivo en PDF |
+| [🎤 Pitch Deck](docs/VeriBeca-Pitch.pptx) | Presentación (10 slides) |
+| [📘 Guía de estudio](docs/Guia-VeriBeca.pdf) | Explicación detallada del DSL, IA y Blockchain |
+| [🖼️ Evidencias del MVP](docs/evidencias/) | Pruebas end-to-end y registro on-chain |
+| [🎥 Video demo](https://drive.google.com/file/d/1Geh7Fkq4N-V72Xdu0PnhmSKgdIS6_0hP/view?usp=sharing) | Demostración (≤3 min) |
 
-Suite actual: **27 tests** (DSL 20 · IA 3 · backend 2 · contracts 2).
+## 👥 Equipo
 
-## Documentación
-
-- [Lean Canvas](docs/lean-canvas.md)
-- [Memoria Técnica](docs/memoria-tecnica.md)
-- [Pitch Deck](docs/pitch-deck.md)
-- [Evidencias del MVP](docs/evidencias/)
-
-## Equipo
-
-Equipo de 3 integrantes. Roles y organización del trabajo en la
+Equipo de **3 integrantes** con metodología ágil (backlog por épicas, módulos desarrollados en
+paralelo, commits frecuentes). Roles y organización en la
 [Memoria Técnica, sección 7](docs/memoria-tecnica.md).
 
-## Video demo
+---
 
-🎥 **[Ver el video demo](https://drive.google.com/file/d/1Geh7Fkq4N-V72Xdu0PnhmSKgdIS6_0hP/view?usp=sharing)**
+<div align="center">
+<i>"De 'confíen en nosotros' a 'verifíquenlo ustedes mismos'."</i>
+</div>
